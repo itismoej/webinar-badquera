@@ -1,6 +1,6 @@
 from rest_framework import serializers
 
-from app.models import College, Lesson, Chapter
+from app.models import College, Lesson
 
 
 class LessonSerializer(serializers.ModelSerializer):
@@ -9,16 +9,8 @@ class LessonSerializer(serializers.ModelSerializer):
         fields = ('__all__',)
 
 
-class ChapterSerializer(serializers.ModelSerializer):
-    lessons = LessonSerializer(many=True)
-
-    class Meta:
-        model = Chapter
-        fields = ('__all__',)
-
-
 class CollegeSerializer(serializers.ModelSerializer):
-    chapters = ChapterSerializer(many=True)
+    lessons = LessonSerializer(many=True)
 
     class Meta:
         model = College
