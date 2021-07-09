@@ -20,7 +20,6 @@ class College(models.Model):
     name = models.CharField(max_length=200)
     is_hidden = models.BooleanField(default=True)
     is_free = models.BooleanField(default=False)
-    users = models.ManyToManyField(User)
 
 
 class Lesson(models.Model):
@@ -30,3 +29,9 @@ class Lesson(models.Model):
     order = models.IntegerField(default=0)
     difficulty = models.IntegerField(default=None, blank=True, null=True)
     text = models.TextField()
+
+
+class UserProfile(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    balance = models.IntegerField(default=200_000)
+    colleges = models.ManyToManyField(College)
