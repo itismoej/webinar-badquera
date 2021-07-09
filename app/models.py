@@ -24,5 +24,5 @@ class Lesson(models.Model):
     name = models.CharField(max_length=200)
     is_hidden = models.BooleanField(default=True)
     order = models.IntegerField(default=0)
-    difficulty = models.IntegerField(default=None, null=True)
+    difficulty = models.IntegerField(default=None, blank=True, null=True)
     text = models.TextField()

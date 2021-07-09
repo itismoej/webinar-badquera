@@ -6,12 +6,12 @@ from app.models import College, Lesson
 class LessonSerializer(serializers.ModelSerializer):
     class Meta:
         model = Lesson
-        fields = ('__all__',)
+        fields = '__all__'
 
 
 class CollegeSerializer(serializers.ModelSerializer):
-    lessons = LessonSerializer(many=True)
+    lesson_set = LessonSerializer(many=True)
 
     class Meta:
         model = College
-        fields = ('__all__',)
+        fields = ('id', 'name', 'lesson_set',)
