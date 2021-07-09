@@ -1,7 +1,10 @@
 from datetime import timedelta
 
+from django.contrib.auth import get_user_model
 from django.db import models
 from django.utils import timezone
+
+User = get_user_model()
 
 
 def _60_days_from_now():
@@ -17,6 +20,7 @@ class College(models.Model):
     name = models.CharField(max_length=200)
     is_hidden = models.BooleanField(default=True)
     is_free = models.BooleanField(default=False)
+    users = models.ManyToManyField(User)
 
 
 class Lesson(models.Model):
