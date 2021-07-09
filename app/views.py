@@ -89,13 +89,17 @@ class CollegeView(APIView):
 class AllCollegesView(APIView):
 
     def get(self, request, *args, **kwargs):
-        if request.user.is_superuser:
-            colleges = College.objects.all()
-        else:
-            colleges = request.user.userprofile.colleges.all()
+        if request.user and request.user.is_authenticated:
+            if request.user.is_superuser:
+                colleges = College.objects.all()
+            else:
+                colleges = request.user.userprofile.colleges.all()
 
-        serialized_colleges = CollegeSerializer(instance=colleges, many=True)
-        return Response(serialized_colleges.data)
+            serialized_colleges = CollegeSerializer(instance=colleges, many=True)
+            return Response(serialized_colleges.data)
+
+        return Response({'errors': ['you should login']}, status=403)
+
 
     def post(self, request, *args, **kwargs):
         if request.user.is_superuser:
